@@ -1,5 +1,8 @@
 import React from "react";
 
+const resData = require("../data/MicBoxData.json");
+console.log(resData["data"][0]);
+
 function MicBox(props) {
   return (
     <>

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import Select from "react-select";
 import Footer from "./Footer";
+import ChangeRegionModal from "./Modal/ChangeRegionModal";
 import GridImage1 from "../assets/images/grid-images/img-1.svg";
 import GridImage2 from "../assets/images/grid-images/img-2.svg";
 import GridImage3 from "../assets/images/grid-images/img-3.svg";
@@ -26,7 +28,6 @@ const elements = document.getElementsByClassName("grid-list");
 var i;
 const handleListClick = () => {
   for (i = 0; i < elements.length; i++) {
-    // elements[i].style.width = "100%";
     elements[i].classList.add("grid-list");
     elements[i].classList.add("col-lg-3");
     elements[i].classList.add("col-md-6");
@@ -39,7 +40,6 @@ const handleListClick = () => {
 
 const handleGridClick = () => {
   for (i = 0; i < elements.length; i++) {
-    // elements[i].style.width = "50%";
     elements[i].classList.add("grid-list");
     elements[i].classList.add("col-lg-3");
     elements[i].classList.add("col-md-12");
@@ -49,7 +49,21 @@ const handleGridClick = () => {
   }
 };
 
+const optionsMicType = [
+  { value: "No Drink Minimum", label: "No Drink Minimum" },
+  { value: "Drink Minimum", label: "Drink Minimum" },
+];
+
+const optionsSortBy = [
+  { value: "All Mic", label: "All Mic" },
+  { value: "Featured Mic", label: "Featured Mic" },
+];
+
 function PageContent() {
+  const [regionShow, setRegionShow] = useState(false);
+
+  const handleRegionShow = () => setRegionShow(true);
+  const handleRegionClose = () => setRegionShow(false);
   return (
     <>
       <div className="middle-container">
@@ -67,6 +81,7 @@ function PageContent() {
                       value="Manhattan"
                       data-toggle="modal"
                       data-target="#change-region"
+                      onClick={handleRegionShow}
                     />
                     <label for="first">Change Region</label>
                   </span>
@@ -86,10 +101,10 @@ function PageContent() {
                 <div className="col-lg-3 col-md-3 destop-view">
                   <span className="has-float-label">
                     <div className="select2-div">
-                      <select className="select-multiple">
-                        <option>No Drink Minimum</option>
-                        <option>Drink Minimum</option>
-                      </select>
+                      <Select
+                        className="select-multiple"
+                        options={optionsMicType}
+                      />
                     </div>
                     <label for="second">Select Mic Type</label>
                   </span>
@@ -97,10 +112,10 @@ function PageContent() {
                 <div className="col-lg-3 col-md-3 destop-view">
                   <span className="has-float-label">
                     <div className="select2-div">
-                      <select className="select-multiple">
-                        <option>All Mic</option>
-                        <option>Featured mic</option>
-                      </select>
+                      <Select
+                        className="select-multiple"
+                        options={optionsSortBy}
+                      />
                     </div>
                     <label for="third">Sort By</label>
                   </span>
@@ -266,6 +281,7 @@ function PageContent() {
         </section>
         <Footer />
       </div>
+      <ChangeRegionModal show={regionShow} onHide={handleRegionClose} />
     </>
   );
 }
