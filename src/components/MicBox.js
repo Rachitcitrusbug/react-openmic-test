@@ -1,40 +1,33 @@
 import React from "react";
 
-const resData = require("../data/MicBoxData.json");
-console.log(resData["data"][0]);
-
 function MicBox(props) {
   return (
     <>
       <div className=" grid-list col-lg-3 col-md-6 col-sm-6">
         <div className="grid-box">
-          {props.isFeatured && <span className="featured-label">Featured</span>}
+          {props.micBoxData.isFeatured && (
+            <span className="featured-label">Featured</span>
+          )}
           <a href="post-mic-details.html">
             <div className="img-box">
-              <img src={props.image} alt="product-1" />
+              <img src={props.micBoxData.image} alt="product-1" />
             </div>
             <div className="content-box">
-              <h3>Comedy openmic</h3>
+              <h3>{props.micBoxData.title}</h3>
               <p>
                 <i className="material-icons"> access_time </i>
-                08:00 pm
+                {props.micBoxData.time}
               </p>
               <p>
                 <i className="material-icons"> location_on</i>
-                Brighton bar
+                {props.micBoxData.location}
               </p>
               <p>First come first serves</p>
-              <p className="address">
-                8 W Cerritos Ave #54, Bridgeport Gloucester, 856-264-4130
-              </p>
+              <p className="address">{props.micBoxData.address}</p>
             </div>
             <div className="content-box2">
               <h4>About the Mic</h4>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Maecenas eleifend urna ligula…Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Maecenas eleifend urna ligula…
-              </p>
+              <p>{props.micBoxData.description}</p>
             </div>
           </a>
         </div>

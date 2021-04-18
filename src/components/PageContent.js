@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import MicBox from "./MicBox";
+import AdBanner from "./AdBanner";
 import Footer from "./Footer";
 import ChangeRegionModal from "./Modal/ChangeRegionModal";
+import { micBoxData } from "../data/MicBoxData";
 import GridImage1 from "../assets/images/grid-images/img-1.svg";
 import GridImage2 from "../assets/images/grid-images/img-2.svg";
 import GridImage3 from "../assets/images/grid-images/img-3.svg";
@@ -20,8 +23,6 @@ import "../assets/css/main-style.css";
 import "../assets/css/owl.theme.default.css";
 import "../assets/css/owl.theme.default.min.css";
 import "../assets/css/select2.min.css";
-import MicBox from "./MicBox";
-import AdBanner from "./AdBanner";
 //import "../assets/css/taggle.min.css";
 
 const elements = document.getElementsByClassName("grid-list");
@@ -212,29 +213,29 @@ function PageContent() {
                       <div id="saturday" className="tab-pane active">
                         <div className="grid-layout">
                           <div className="row">
-                            <MicBox image={GridImage1} isFeatured={true} />
-                            <MicBox image={GridImage2} isFeatured={true} />
-                            <MicBox image={GridImage3} isFeatured={true} />
-                            <MicBox image={GridImage4} isFeatured={true} />
+                            <MicBox micBoxData={micBoxData[0]} />
+                            <MicBox micBoxData={micBoxData[1]} />
+                            <MicBox micBoxData={micBoxData[2]} />
+                            <MicBox micBoxData={micBoxData[3]} />
                           </div>
 
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
-                            <MicBox image={GridImage3} />
-                            <MicBox image={GridImage4} />
+                            <MicBox micBoxData={micBoxData[4]} />
+                            <MicBox micBoxData={micBoxData[5]} />
+                            <MicBox micBoxData={micBoxData[6]} />
+                            <MicBox micBoxData={micBoxData[7]} />
                           </div>
 
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
-                            <MicBox image={GridImage3} />
-                            <MicBox image={GridImage4} />
+                            <MicBox micBoxData={micBoxData[8]} />
+                            <MicBox micBoxData={micBoxData[9]} />
+                            <MicBox micBoxData={micBoxData[10]} />
+                            <MicBox micBoxData={micBoxData[11]} />
                           </div>
 
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
+                            <MicBox micBoxData={micBoxData[12]} />
+                            <MicBox micBoxData={micBoxData[13]} />
                             <AdBanner
                               imageTop={AddTwo}
                               imageBottom={AddBottom}
@@ -245,15 +246,15 @@ function PageContent() {
                       <div id="sunday" className="tab-pane ">
                         <div className="list-layout">
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
-                            <MicBox image={GridImage3} />
-                            <MicBox image={GridImage4} />
+                            <MicBox micBoxData={micBoxData[0]} />
+                            <MicBox micBoxData={micBoxData[1]} />
+                            <MicBox micBoxData={micBoxData[2]} />
+                            <MicBox micBoxData={micBoxData[3]} />
                           </div>
 
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
+                            <MicBox micBoxData={micBoxData[4]} />
+                            <MicBox micBoxData={micBoxData[5]} />
                             <AdBanner
                               imageTop={AddTwo}
                               imageBottom={AddBottom}
@@ -265,10 +266,10 @@ function PageContent() {
                       <div id="monday" className="tab-pane">
                         <div className="list-layout">
                           <div className="row">
-                            <MicBox image={GridImage1} />
-                            <MicBox image={GridImage2} />
-                            <MicBox image={GridImage3} />
-                            <MicBox image={GridImage4} />
+                            <MicBox micBoxData={micBoxData[1]} />
+                            <MicBox micBoxData={micBoxData[2]} />
+                            <MicBox micBoxData={micBoxData[3]} />
+                            <MicBox micBoxData={micBoxData[4]} />
                           </div>
                         </div>
                       </div>
