@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
-import { login } from "../api/loginApi";
+import LoginModal from "./Modal/LoginModal";
+import ContactModal from "./Modal/ContactModal";
 import Logo from "../assets/images/logo.svg";
 import Theater from "../assets/images/icon/theater.svg";
-import LogoBlack from "../assets/images/logo-black.svg";
 import "../assets/css/steps/style.css";
 import "../assets/css/animate.min.css";
 import "../assets/css/bootstrap-float-label.min.css";
@@ -16,9 +15,6 @@ import "../assets/css/main-style.css";
 import "../assets/css/owl.theme.default.css";
 import "../assets/css/owl.theme.default.min.css";
 import "../assets/css/select2.min.css";
-import GuidePostMic from "./GuidePostMic";
-import LoginModal from "./Modal/LoginModal";
-import ContactModal from "./Modal/ContactModal";
 //import "../assets/css/taggle.min.css";
 
 function DashboardHeader() {
@@ -31,8 +27,28 @@ function DashboardHeader() {
   const handleContactShow = () => setContactShow(true);
   const handleContactClose = () => setContactShow(false);
 
+  const element1 = document.querySelector("#mySidenav");
+  const element2 = document.querySelector("#nav-res");
+  const element3 = document.querySelector(".cd-shadow-layer");
+
+  const handleOpenNav = () => {
+    if (element1 && element2 && element3) {
+      element1.classList.add("width80");
+      element2.classList.add("opacityon");
+      element3.classList.add("displayblock");
+    }
+  };
+
+  const handleCloseNav = () => {
+    if (element1 && element2 && element3) {
+      element1.classList.remove("width80");
+      element2.classList.remove("opacityon");
+      element3.classList.remove("displayblock");
+    }
+  };
+
   return (
-    <div>
+    <>
       <header>
         <div className="header-div cbp-af-header clearfix">
           <div className="inner-top-header-div clearfix">
@@ -50,7 +66,7 @@ function DashboardHeader() {
                       <div className="nav-m-bar">
                         <a
                           href="#"
-                          onclick="openNav()"
+                          onClick={handleOpenNav}
                           className="opennav"
                           data-placement="bottom"
                           title=""
@@ -69,7 +85,7 @@ function DashboardHeader() {
                         <a
                           href="javascript:void(0)"
                           className="closebtn"
-                          onclick="closeNav()"
+                          onClick={handleCloseNav}
                         >
                           &times;
                         </a>
@@ -112,7 +128,7 @@ function DashboardHeader() {
       <LoginModal show={loginShow} onHide={handleLoginClose} />
 
       <ContactModal show={contactShow} onHide={handleContactClose} />
-    </div>
+    </>
   );
 }
 

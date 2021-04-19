@@ -1,5 +1,4 @@
 import React, { Suspense, lazy } from "react";
-import "./App.css";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 const Main = lazy(() => import("./components/Main"));

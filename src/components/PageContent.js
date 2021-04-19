@@ -4,11 +4,9 @@ import MicBox from "./MicBox";
 import AdBanner from "./AdBanner";
 import Footer from "./Footer";
 import ChangeRegionModal from "./Modal/ChangeRegionModal";
+import FilterModal from "./Modal/FilterModal";
 import { micBoxData } from "../data/MicBoxData";
-import GridImage1 from "../assets/images/grid-images/img-1.svg";
-import GridImage2 from "../assets/images/grid-images/img-2.svg";
-import GridImage3 from "../assets/images/grid-images/img-3.svg";
-import GridImage4 from "../assets/images/grid-images/img-4.svg";
+import { regionData } from "../data/RegionData";
 import AddBottom from "../assets/images/add/add-bottom.png";
 import AddTwo from "../assets/images/add/add-two.png";
 import "../assets/css/steps/style.css";
@@ -62,9 +60,12 @@ const optionsSortBy = [
 
 function PageContent() {
   const [regionShow, setRegionShow] = useState(false);
+  const [filterShow, setFilterShow] = useState(false);
 
   const handleRegionShow = () => setRegionShow(true);
   const handleRegionClose = () => setRegionShow(false);
+  const handleFilterShow = () => setFilterShow(true);
+  const handleFilterClose = () => setFilterShow(false);
   return (
     <>
       <div className="middle-container">
@@ -89,11 +90,12 @@ function PageContent() {
                 </div>
                 <div className="col-lg-3 col-md-3 col-6 mobile-view ">
                   <a
-                    href=""
+                    href="javascript:void(0)"
                     className="btn btn-modal btn-filter"
                     value="Manhattan"
                     data-toggle="modal"
                     data-target="#moadl-filter"
+                    onClick={handleFilterShow}
                   >
                     Apply Filter <i className="material-icons"> filter_list </i>
                   </a>
@@ -213,29 +215,9 @@ function PageContent() {
                       <div id="saturday" className="tab-pane active">
                         <div className="grid-layout">
                           <div className="row">
-                            <MicBox micBoxData={micBoxData[0]} />
-                            <MicBox micBoxData={micBoxData[1]} />
-                            <MicBox micBoxData={micBoxData[2]} />
-                            <MicBox micBoxData={micBoxData[3]} />
-                          </div>
-
-                          <div className="row">
-                            <MicBox micBoxData={micBoxData[4]} />
-                            <MicBox micBoxData={micBoxData[5]} />
-                            <MicBox micBoxData={micBoxData[6]} />
-                            <MicBox micBoxData={micBoxData[7]} />
-                          </div>
-
-                          <div className="row">
-                            <MicBox micBoxData={micBoxData[8]} />
-                            <MicBox micBoxData={micBoxData[9]} />
-                            <MicBox micBoxData={micBoxData[10]} />
-                            <MicBox micBoxData={micBoxData[11]} />
-                          </div>
-
-                          <div className="row">
-                            <MicBox micBoxData={micBoxData[12]} />
-                            <MicBox micBoxData={micBoxData[13]} />
+                            {micBoxData.map((box, index) => (
+                              <MicBox key={index} box={box} />
+                            ))}
                             <AdBanner
                               imageTop={AddTwo}
                               imageBottom={AddBottom}
@@ -243,18 +225,12 @@ function PageContent() {
                           </div>
                         </div>
                       </div>
-                      <div id="sunday" className="tab-pane ">
+                      <div id="sunday" className="tab-pane">
                         <div className="list-layout">
                           <div className="row">
-                            <MicBox micBoxData={micBoxData[0]} />
-                            <MicBox micBoxData={micBoxData[1]} />
-                            <MicBox micBoxData={micBoxData[2]} />
-                            <MicBox micBoxData={micBoxData[3]} />
-                          </div>
-
-                          <div className="row">
-                            <MicBox micBoxData={micBoxData[4]} />
-                            <MicBox micBoxData={micBoxData[5]} />
+                            {micBoxData.map((box, index) => (
+                              <MicBox key={index} box={box} />
+                            ))}
                             <AdBanner
                               imageTop={AddTwo}
                               imageBottom={AddBottom}
@@ -266,10 +242,9 @@ function PageContent() {
                       <div id="monday" className="tab-pane">
                         <div className="list-layout">
                           <div className="row">
-                            <MicBox micBoxData={micBoxData[1]} />
-                            <MicBox micBoxData={micBoxData[2]} />
-                            <MicBox micBoxData={micBoxData[3]} />
-                            <MicBox micBoxData={micBoxData[4]} />
+                            {micBoxData.map((box, index) => (
+                              <MicBox key={index} box={box} />
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -282,7 +257,12 @@ function PageContent() {
         </section>
         <Footer />
       </div>
-      <ChangeRegionModal show={regionShow} onHide={handleRegionClose} />
+      <ChangeRegionModal
+        show={regionShow}
+        onHide={handleRegionClose}
+        regionData={regionData}
+      />
+      <FilterModal show={filterShow} onHide={handleFilterClose} />
     </>
   );
 }
