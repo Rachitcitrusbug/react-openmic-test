@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import LoginModal from "./Modal/LoginModal";
 import ContactModal from "./Modal/ContactModal";
 import Logo from "../assets/images/logo.svg";
@@ -47,6 +48,18 @@ function DashboardHeader() {
     }
   };
 
+  const history = useHistory();
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    history.push("/");
+  };
+
+  const handlePostClick = (e) => {
+    e.preventDefault();
+    history.push("/post");
+  };
+
   return (
     <>
       <header>
@@ -56,7 +69,11 @@ function DashboardHeader() {
               <div className="row">
                 <div className="col-sm-12 col-lg-12">
                   <div className="logo-div">
-                    <a className="logo_link clearfix" href="index.html">
+                    <a
+                      className="logo_link clearfix"
+                      href="#"
+                      onClick={handleImageClick}
+                    >
                       <img src={Logo} className="logo-white" alt="I-mobile" />
                     </a>
                   </div>
@@ -112,7 +129,9 @@ function DashboardHeader() {
                             </a>
                           </li>
                           <li className="btn-signup">
-                            <a href="guide-for-post-mic.html">Post Your Mic</a>
+                            <a href="#" onClick={handlePostClick}>
+                              Post Your Mic
+                            </a>
                           </li>
                         </ul>
                       </div>

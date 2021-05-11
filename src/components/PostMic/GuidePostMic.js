@@ -1,22 +1,30 @@
 import React from "react";
-import DashboardHeader from "./DashboardHeader";
-import Footer from "./Footer";
+import { useHistory } from "react-router-dom";
+import DashboardHeader from "../DashboardHeader";
+import Footer from "../Footer";
 
 function GuidePostMic() {
+  const history = useHistory();
+
+  const handleAgreeClick = (e) => {
+    e.preventDefault();
+    history.push("/post/1");
+  };
+
   return (
     <>
       <div className="wrapper">
         <DashboardHeader />
-        <div class="middle-container">
-          <section class="postmic-secttion">
-            <div class="container">
-              <div class="post-mic-form">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="post-mic-heading">
+        <div className="middle-container">
+          <section className="postmic-secttion">
+            <div className="container">
+              <div className="post-mic-form">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="post-mic-heading">
                       <h3>Post your mic...</h3>
                       <p>Guide for Posting Your Open Mic</p>
-                      <ul class="post-guide">
+                      <ul className="post-guide">
                         <li>Your mic must permit Stand Up Comedy. </li>
                         <li>
                           You must not require performers to bring audience
@@ -31,11 +39,15 @@ function GuidePostMic() {
                   </div>
                 </div>
 
-                <div class="login-form-footer">
-                  <div class="row">
-                    <div class="col-lg-12 text-right">
-                      <div class="btn-groups">
-                        <a href="post-your-mic.html" class="btn btn-login">
+                <div className="login-form-footer">
+                  <div className="row">
+                    <div className="col-lg-12 text-right">
+                      <div className="btn-groups">
+                        <a
+                          href="#"
+                          className="btn btn-login"
+                          onClick={handleAgreeClick}
+                        >
                           Agree
                         </a>
                       </div>
