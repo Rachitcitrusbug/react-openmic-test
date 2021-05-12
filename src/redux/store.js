@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
-import stepOneReducer from "./Reducers/stepOneReducer";
+import rootReducer from "./rootReducer";
 
 const logger = createLogger();
-const store = createStore(stepOneReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 export default store;

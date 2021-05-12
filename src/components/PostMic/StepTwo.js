@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { stepTwo } from "../../redux";
 import DashboardHeader from "../DashboardHeader";
 import Footer from "../Footer";
 import Instructions from "./Instructions";
 
-function StepTwo() {
+function StepTwo(props) {
   const history = useHistory();
+  const [scheduleDateTime, setScheduleDateTime] = useState("");
+
   const handlePreviousClick = (e) => {
     e.preventDefault();
     history.push("/post/1");
@@ -13,8 +17,15 @@ function StepTwo() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    props.stepTwo({
+      scheduleDateTime: scheduleDateTime,
+    });
     history.push("/post/3");
   };
+
+  useEffect(() => {
+    setScheduleDateTime(props.scheduleDateTime);
+  }, [props.scheduleDateTime]);
 
   return (
     <>
@@ -49,6 +60,10 @@ function StepTwo() {
                               id="datetime"
                               className="form-control"
                               placeholder="select date"
+                              value={scheduleDateTime}
+                              onChange={(e) => {
+                                setScheduleDateTime(e.target.value);
+                              }}
                             />
                             <span>Schedule Date and Time</span>
                           </label>
@@ -93,4 +108,16 @@ function StepTwo() {
   );
 }
 
-export default StepTwo;
+const mapStateToProps = (state) => {
+  return {
+    scheduleDateTime: state.two.scheduleDateTime,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stepTwo: (data) => dispatch(stepTwo(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepTwo);

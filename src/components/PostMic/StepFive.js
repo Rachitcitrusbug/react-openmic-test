@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { stepFive } from "../../redux";
 import DashboardHeader from "../DashboardHeader";
 import Footer from "../Footer";
 import Instructions from "./Instructions";
 import MicImage from "../../assets/images/Mic.png";
 
-function StepFive() {
+function StepFive(props) {
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+
   const history = useHistory();
   const handlePreviousClick = (e) => {
     e.preventDefault();
@@ -14,8 +19,17 @@ function StepFive() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    props.stepFive({
+      image: image,
+      description: description,
+    });
     history.push("/post/6");
   };
+
+  useEffect(() => {
+    setImage(props.image);
+    setDescription(props.description);
+  }, [props.image, props.description]);
 
   return (
     <>
@@ -54,6 +68,10 @@ function StepFive() {
                             onchange="readURL(this);"
                             data-multiple-caption="{count} files selected"
                             multiple
+                            // value={image}
+                            onChange={(e) => {
+                              setImage(e.target.value);
+                            }}
                           />
                           <label for="your_picture">
                             <figure>
@@ -76,6 +94,10 @@ function StepFive() {
                               name="Description"
                               id="Description"
                               placeholder="Additional description"
+                              value={description}
+                              onChange={(e) => {
+                                setDescription(e.target.value);
+                              }}
                             ></textarea>
                             <span>Additional description</span>
                           </label>
@@ -120,4 +142,17 @@ function StepFive() {
   );
 }
 
-export default StepFive;
+const mapStateToProps = (state) => {
+  return {
+    image: state.five.image,
+    description: state.five.description,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stepFive: (data) => dispatch(stepFive(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepFive);

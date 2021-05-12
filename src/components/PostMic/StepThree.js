@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 import DashboardHeader from "../DashboardHeader";
 import Footer from "../Footer";
 import Instructions from "./Instructions";
+import { stepThree } from "../../redux";
 
-function StepThree() {
+const elements = document.getElementsByClassName("hidden-div");
+var i;
+const handleNoClick = () => {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.remove("hidden");
+  }
+};
+
+const handleYesClick = () => {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].classList.add("hidden");
+  }
+};
+
+function StepThree(props) {
   const history = useHistory();
+  const [openToAll, setOpenToAll] = useState("");
+  const [description, setDescription] = useState("");
+
   const handlePreviousClick = (e) => {
     e.preventDefault();
     history.push("/post/2");
@@ -13,8 +32,17 @@ function StepThree() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    props.stepThree({
+      openToAll: openToAll,
+      description: description,
+    });
     history.push("/post/4");
   };
+
+  useEffect(() => {
+    setOpenToAll(props.openToAll);
+    setDescription(props.description);
+  }, [props.openToAll, props.description]);
 
   const styleObj = {
     display: "none",
@@ -55,6 +83,11 @@ function StepThree() {
                               className="radio-yes"
                               className="radio"
                               name="radio"
+                              value={openToAll}
+                              onClick={(e) => {
+                                setOpenToAll(e.target.value);
+                                handleYesClick();
+                              }}
                             />
                             <span className="checkmark"></span>
                           </label>
@@ -68,6 +101,7 @@ function StepThree() {
                               type="radio"
                               className="radio-no"
                               name="radio"
+                              onClick={handleNoClick}
                             />
                             <span className="checkmark"></span>
                           </label>
@@ -76,8 +110,9 @@ function StepThree() {
 
                       <div className="col-lg-12">
                         <div
-                          className="form-group radio-checked"
-                          style={styleObj}
+                          className="form-group radio-checked hidden-div"
+                          // style={styleObj}
+                          // hidden
                         >
                           <label className="has-float-label">
                             <textarea
@@ -86,6 +121,10 @@ function StepThree() {
                               rows="4"
                               id="describe"
                               placeholder="please describe requirments to perform."
+                              value={description}
+                              onChange={(e) => {
+                                setDescription(e.target.value);
+                              }}
                             >
                               {" "}
                             </textarea>
@@ -132,4 +171,17 @@ function StepThree() {
   );
 }
 
-export default StepThree;
+const mapStateToProps = (state) => {
+  return {
+    openToAll: state.three.openToAll,
+    description: state.three.description,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stepThree: (data) => dispatch(stepThree(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepThree);

@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { stepFour } from "../../redux";
+import Select from "react-select";
 import DashboardHeader from "../DashboardHeader";
 import Footer from "../Footer";
 import Instructions from "./Instructions";
 
-function StepFour() {
+const options = [{ value: "Completly Free", label: "Completly Free" }];
+
+function StepFour(props) {
   const history = useHistory();
+  const [cost, setCost] = useState("");
+
   const handlePreviousClick = (e) => {
     e.preventDefault();
     history.push("/post/3");
@@ -13,8 +20,15 @@ function StepFour() {
 
   const handleNextClick = (e) => {
     e.preventDefault();
+    props.stepFour({
+      cost: cost,
+    });
     history.push("/post/5");
   };
+
+  useEffect(() => {
+    setCost(props.cost);
+  }, [props.cost]);
 
   return (
     <>
@@ -45,9 +59,17 @@ function StepFour() {
                         <div className="form-group">
                           <span className="has-float-label">
                             <div className="select2-div">
-                              <select className="select-multiple">
-                                <option>Completly Free</option>
-                              </select>
+                              <Select
+                                className="select-multiple"
+                                options={options}
+                                // value={cost}
+                                // onChange={(e) => {
+                                //   setCost(e.target.value);
+                                // }}
+                                onClick={() => {
+                                  setCost("Completly Free");
+                                }}
+                              />
                             </div>
                             <label for="second">Select</label>
                           </span>
@@ -92,4 +114,16 @@ function StepFour() {
   );
 }
 
-export default StepFour;
+const mapStateToProps = (state) => {
+  return {
+    cost: state.four.cost,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    stepFour: (data) => dispatch(stepFour(data)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StepFour);

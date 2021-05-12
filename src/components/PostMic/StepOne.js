@@ -261,14 +261,14 @@ function StepOne(props) {
 
 const mapStateToProps = (state) => {
   return {
-    firstName: state.firstName,
-    lastName: state.lastName,
-    email: state.email,
-    cellNumber: state.cellNumber,
-    password: state.password,
-    confirmPassword: state.confirmPassword,
-    venue: state.venue,
-    aboutShow: state.aboutShow,
+    firstName: state.one.firstName,
+    lastName: state.one.lastName,
+    email: state.one.email,
+    cellNumber: state.one.cellNumber,
+    password: state.one.password,
+    confirmPassword: state.one.confirmPassword,
+    venue: state.one.venue,
+    aboutShow: state.one.aboutShow,
   };
 };
 
